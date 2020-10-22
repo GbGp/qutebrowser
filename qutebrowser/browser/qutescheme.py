@@ -44,7 +44,7 @@ except ImportError:
 from PyQt5.QtCore import QUrlQuery, QUrl, qVersion
 
 import qutebrowser
-from qutebrowser.browser import downloads, history
+from qutebrowser.browser import history
 from qutebrowser.config import config, configdata, configexc, configdiff
 from qutebrowser.utils import (version, utils, jinja, log, message, docutils,
                                objreg, urlutils, standarddir)

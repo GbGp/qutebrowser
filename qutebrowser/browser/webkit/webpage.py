@@ -276,7 +276,7 @@ class BrowserPage(QWebPage):
             else:
                 reply.finished.connect(functools.partial(
                     self.display_content, reply, 'image/jpeg'))
-        elif downloads.should_use_pdf(mimetype, reply.url()):
+        elif downloads.should_use_pdfium(mimetype, reply.url()):
             download_manager.fetch(reply,
                                    target=downloads.OpenPDFDownloadTarget(),
                                    auto_remove=True)

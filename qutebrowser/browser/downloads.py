@@ -247,7 +247,7 @@ def should_use_pdfium(mimetype, url):
     return is_pdf and not is_download_url and config_enabled
 
 
-def get_pdfium_url(url: str) -> QUrl:
+def get_pdfium_url(url: QUrl) -> QUrl:
     """Get the URL to be opened to view a PDF with PDFium."""
     view_url = QUrl('chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/index.html')
     view_url.setQuery(url.toString(QUrl.FullyEncoded))  # type: ignore[arg-type]

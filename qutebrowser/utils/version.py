@@ -19,7 +19,6 @@
 
 """Utilities to show various version information."""
 
-import re
 import sys
 import glob
 import os.path
