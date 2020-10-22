@@ -36,7 +36,6 @@ import pytest_bdd as bdd
 
 import qutebrowser
 from qutebrowser.utils import log, utils, docutils
-from qutebrowser.browser import pdfjs
 from helpers import utils as testutils
 
 
@@ -185,12 +184,6 @@ def clean_open_tabs(quteproc):
     quteproc.send_cmd(':tab-only --force')
     quteproc.send_cmd(':tab-close --force')
     quteproc.wait_for_load_finished_url('about:blank')
-
-
-@bdd.given('pdfjs is available')
-def pdfjs_available(data_tmpdir):
-    if not pdfjs.is_available():
-        pytest.skip("No pdfjs installation found.")
 
 
 @bdd.given('I clear the log')

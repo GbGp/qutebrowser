@@ -128,6 +128,9 @@ class WebEngineSettings(websettings.AbstractSettings):
                  converter=lambda val: True if val == 'ask' else val),
         # 'ask' is handled via the permission system,
         # or a hardcoded dialog on Qt < 5.10
+        'content.pdf':
+            Attr(QWebEngineSettings.PdfViewerEnabled),
+
 
         'input.spatial_navigation':
             Attr(QWebEngineSettings.SpatialNavigationEnabled),
@@ -264,7 +267,7 @@ class ProfileSetter:
             pass
 
         try:
-            settings.setAttribute(QWebEngineSettings.PdfViewerEnabled, False)
+            settings.setAttribute(QWebEngineSettings.PdfViewerEnabled, True)
         except AttributeError:
             # Added in Qt 5.13
             pass

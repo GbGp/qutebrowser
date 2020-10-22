@@ -170,33 +170,6 @@ Feature: Special qute:// pages
         Then "RequestDeniedError while handling qute://* URL" should be logged
         And the error "Invalid CSRF token for qute://settings!" should be shown
 
-    # pdfjs support
-
-    Scenario: pdfjs is used for pdf files
-        Given pdfjs is available
-        When I set content.pdfjs to true
-        And I open data/misc/test.pdf without waiting
-        Then the javascript message "PDF * [*] (PDF.js: *)" should be logged
-
-    @qtwebkit_pdf_imageformat_skip
-    Scenario: pdfjs is not used when disabled
-        When I set content.pdfjs to false
-        And I set downloads.location.prompt to false
-        And I open data/misc/test.pdf without waiting
-        Then "Download test.pdf finished" should be logged
-
-    @qtwebengine_skip: Might work with Qt 5.12
-    Scenario: Downloading a pdf via pdf.js button (issue 1214)
-        Given pdfjs is available
-        When I set content.pdfjs to true
-        And I set downloads.location.prompt to true
-        And I open data/misc/test.pdf without waiting
-        And I wait for "[qute://pdfjs/*] PDF * (PDF.js: *)" in the log
-        And I run :jseval document.getElementById("download").click()
-        And I wait for "Asking question <qutebrowser.utils.usertypes.Question default=* mode=<PromptMode.download: 5> text=* title='Save file to:'>, *" in the log
-        And I run :leave-mode
-        Then no crash should happen
-
     # :pyeval
 
     Scenario: Running :pyeval

@@ -31,7 +31,7 @@ from PyQt5.QtPrintSupport import QPrintDialog
 from PyQt5.QtWebKitWidgets import QWebPage, QWebFrame
 
 from qutebrowser.config import websettings
-from qutebrowser.browser import pdfjs, shared, downloads, greasemonkey
+from qutebrowser.browser import shared, downloads, greasemonkey
 from qutebrowser.browser.webkit import http
 from qutebrowser.browser.webkit.network import networkmanager
 from qutebrowser.utils import message, usertypes, log, jinja, objreg
@@ -276,9 +276,9 @@ class BrowserPage(QWebPage):
             else:
                 reply.finished.connect(functools.partial(
                     self.display_content, reply, 'image/jpeg'))
-        elif pdfjs.should_use_pdfjs(mimetype, reply.url()):
+        elif downloads.should_use_pdf(mimetype, reply.url()):
             download_manager.fetch(reply,
-                                   target=downloads.PDFJSDownloadTarget(),
+                                   target=downloads.OpenPDFDownloadTarget(),
                                    auto_remove=True)
         else:
             # Unknown mimetype, so download anyways.

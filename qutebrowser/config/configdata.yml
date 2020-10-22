@@ -796,15 +796,15 @@ content.notifications:
     QtWebKit: true
   desc: Allow websites to show notifications.
 
-content.pdfjs:
+content.pdf:
   default: false
   type: Bool
   supports_pattern: true
   desc: >-
-    Allow pdf.js to view PDF files in the browser.
+    Allow pdfium to view PDF files in the browser.
 
     Note that the files can still be downloaded by clicking the download button
-    in the pdf.js viewer.
+    in the pdfium viewer.
 
 content.persistent_storage:
   default: ask
@@ -3319,7 +3319,7 @@ bindings.default:
     prompt:
       <Return>: prompt-accept
       <Ctrl-X>: prompt-open-download
-      <Ctrl-P>: prompt-open-download --pdfjs
+      <Ctrl-P>: prompt-open-download --pdf
       <Shift-Tab>: prompt-item-focus prev
       <Up>: prompt-item-focus prev
       <Tab>: prompt-item-focus next

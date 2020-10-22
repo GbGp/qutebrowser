@@ -276,10 +276,15 @@ def init(args: argparse.Namespace) -> None:
         raise utils.Unreachable(objects.backend)
 
     # Make sure special URLs always get JS support
-    for pattern in ['chrome://*/*', 'qute://*/*']:
+    for pattern in ['chrome://*/*', 'qute://*/*',
+                    'chrome-extension://*/*']:
         config.instance.set_obj('content.javascript.enabled', True,
                                 pattern=urlmatch.UrlPattern(pattern),
                                 hide_userconfig=True)
+
+    pattern = 'chrome-extension://*/*'
+    config.instance.set_obj('content.plugins', True,
+                            pattern=urlmatch.UrlPattern(pattern))
 
 
 def clear_private_data() -> None:

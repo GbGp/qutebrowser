@@ -49,7 +49,6 @@ except ImportError:  # pragma: no cover
 import qutebrowser
 from qutebrowser.utils import log, utils, standarddir, usertypes, message
 from qutebrowser.misc import objects, earlyinit, sql, httpclient, pastebin
-from qutebrowser.browser import pdfjs
 from qutebrowser.config import config
 
 try:
@@ -339,30 +338,6 @@ def _os_info() -> typing.Sequence[str]:
     return lines
 
 
-def _pdfjs_version() -> str:
-    """Get the pdf.js version.
-
-    Return:
-        A string with the version number.
-    """
-    try:
-        pdfjs_file, file_path = pdfjs.get_pdfjs_res_and_path('build/pdf.js')
-    except pdfjs.PDFJSNotFound:
-        return 'no'
-    else:
-        pdfjs_file = pdfjs_file.decode('utf-8')
-        version_re = re.compile(
-            r"^ *(PDFJS\.version|(var|const) pdfjsVersion) = '(?P<version>[^']+)';$",
-            re.MULTILINE)
-
-        match = version_re.search(pdfjs_file)
-        pdfjs_version = 'unknown' if not match else match.group('version')
-        if file_path is None:
-            file_path = 'bundled'
-
-        return '{} ({})'.format(pdfjs_version, file_path)
-
-
 def _chromium_version() -> str:
     """Get the Chromium version for QtWebEngine.
 
@@ -507,7 +482,6 @@ def version_info() -> str:
     lines += _module_versions()
 
     lines += [
-        'pdf.js: {}'.format(_pdfjs_version()),
         'sqlite: {}'.format(sql.version()),
         'QtNetwork SSL: {}\n'.format(QSslSocket.sslLibraryVersionString()
                                      if QSslSocket.supportsSsl() else 'no'),
